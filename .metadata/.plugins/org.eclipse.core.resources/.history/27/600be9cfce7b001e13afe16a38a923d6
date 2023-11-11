@@ -1,0 +1,9 @@
+package com.eduexcellence.feesms.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.eduexcellence.feesms.model.FeeDetails;
+
+public interface FeesRepository extends CrudRepository<FeeDetails, Integer>{
+
+}

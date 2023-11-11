@@ -1,0 +1,9 @@
+package com.eduexcellence.feesms.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.eduexcellence.feesms.model.FeeDetails;
+
+public interface FeesRepository extends JpaRepository<FeeDetails, Integer>{
+
+}

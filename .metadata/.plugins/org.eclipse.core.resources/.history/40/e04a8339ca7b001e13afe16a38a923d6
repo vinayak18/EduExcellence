@@ -1,0 +1,60 @@
+package com.eduexcellence.studentms.serviceImpl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.eduexcellence.studentms.model.Student;
+import com.eduexcellence.studentms.repository.StudentRepository;
+import com.eduexcellence.studentms.service.StudentService;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+	
+	@Autowired
+	private StudentRepository studentRepo;
+
+	@Override
+	public ResponseEntity<List<Student>> getAllStudent() {
+		List<Student> st = new ArrayList<Student>();
+		st.add(new Student(1, 1, "Vinayak", "Saraf", null, null, 4));
+		return new ResponseEntity<>(st,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> addNewStudent(Student student) {
+		List<Student> studentList = studentRepo.findByGrade(student.getGrade());
+		studentList.add(student);
+		reshuffleListBasedOnName(studentList);
+		return new ResponseEntity<>("Student added successfully",HttpStatus.OK);
+	}
+	
+	public void reshuffleListBasedOnName(List<Student> studentList){
+		Collections.sort(studentList, new Comparator<Student>() {
+			public int compare(Student a, Student b) {
+				if(a.getFirstName().compareTo(b.getFirstName()) == 0) {
+					return a.getLastName().compareTo(b.getLastName());
+				}
+				return a.getFirstName().compareTo(b.getFirstName());
+			}
+		}); 
+		int[] rollNo = {1};
+		studentList.stream().forEach((st)->{
+			st.setRollNo(rollNo[0]++);
+		});
+		studentRepo.saveAll(studentList);
+	}
+
+	@Override
+	public ResponseEntity<List<Student>> getStudentById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

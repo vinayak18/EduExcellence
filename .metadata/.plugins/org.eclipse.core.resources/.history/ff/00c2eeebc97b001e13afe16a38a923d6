@@ -1,0 +1,15 @@
+package com.eduexcellence.studentms.service;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.eduexcellence.studentms.model.Student;
+
+public interface StudentService {
+
+	public ResponseEntity<List<Student>> getAllStudent();
+
+	public ResponseEntity<String> addNewStudent(Student student);
+
+}

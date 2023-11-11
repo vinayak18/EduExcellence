@@ -1,0 +1,8 @@
+package com.eduexcellence.studentms.exception;
+
+public class StudentNotFoundException extends RuntimeException {
+	String message;
+	public StudentNotFoundException(String message) {
+		super(message);
+	}
+}

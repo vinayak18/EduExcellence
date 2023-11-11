@@ -1,0 +1,5 @@
+package com.eduexcellence.feesms.model;
+
+public class FeeDetails {
+
+}

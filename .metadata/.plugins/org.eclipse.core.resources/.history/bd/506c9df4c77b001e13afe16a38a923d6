@@ -1,0 +1,34 @@
+package com.eduexcellence.studentms.serviceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.eduexcellence.studentms.model.Student;
+import com.eduexcellence.studentms.repository.StudentRepository;
+import com.eduexcellence.studentms.service.StudentService;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+	
+	@Autowired
+	private StudentRepository studentRepo;
+
+	@Override
+	public ResponseEntity<List<Student>> getAllStudent() {
+		List<Student> st = new ArrayList<Student>();
+		st.add(new Student(1, 1, "Vinayak", "Saraf", null, null, 4));
+		return new ResponseEntity<>(st,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> addNewStudent(Student student) {
+		studentRepo.save(student);
+		return new ResponseEntity<>("Student added successfully",HttpStatus.OK);
+	}
+
+}

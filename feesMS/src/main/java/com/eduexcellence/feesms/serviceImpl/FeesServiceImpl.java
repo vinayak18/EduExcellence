@@ -1,0 +1,38 @@
+package com.eduexcellence.feesms.serviceImpl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.eduexcellence.feesms.model.FeeDetails;
+import com.eduexcellence.feesms.repository.FeesRepository;
+import com.eduexcellence.feesms.service.FeesService;
+
+import jakarta.validation.Valid;
+
+@Service
+public class FeesServiceImpl implements FeesService {
+
+	@Autowired
+	private FeesRepository feeRepo;
+	
+	@Override
+	public ResponseEntity<List<FeeDetails>> getFeesPaidByStudent(int studentId) {
+		// TODO Auto-generated method stub
+		List<FeeDetails> details = feeRepo.findByStudentId(studentId);
+		return new ResponseEntity<>(details,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> addFeeDetailsForStudent(FeeDetails feeDetails) {
+		// TODO Auto-generated method stub
+		feeDetails.setDateOfPayment(new Date());
+		feeRepo.save(feeDetails);
+		return new ResponseEntity<>("fee details successfully",HttpStatus.OK);
+	}
+
+}

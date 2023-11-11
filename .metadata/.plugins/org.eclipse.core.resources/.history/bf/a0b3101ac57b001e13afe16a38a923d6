@@ -1,0 +1,22 @@
+package com.eduexcellence.studentms.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Student {
+	@Id
+	int id;
+	int rollNo;
+	String firstName;
+	String lastName;
+	String address;
+	String phoneNo;
+	int grade;
+}

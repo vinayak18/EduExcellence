@@ -1,0 +1,19 @@
+package com.eduexcellence.studentms.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.eduexcellence.studentms.model.Student;
+import com.eduexcellence.studentms.service.StudentService;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	@Override
+	public ResponseEntity<List<Student>> getAllStudent() {
+		return null;
+	}
+
+}

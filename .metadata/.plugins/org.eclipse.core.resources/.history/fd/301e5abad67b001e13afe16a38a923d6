@@ -1,0 +1,5 @@
+package com.eduexcellence.feesms.service;
+
+public interface FeesService {
+
+}

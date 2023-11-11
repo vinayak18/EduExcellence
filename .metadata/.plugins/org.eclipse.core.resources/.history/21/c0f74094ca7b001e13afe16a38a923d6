@@ -1,0 +1,5 @@
+package com.eduexcellence.studentms.exception;
+
+public class StudentNotFoundException {
+
+}

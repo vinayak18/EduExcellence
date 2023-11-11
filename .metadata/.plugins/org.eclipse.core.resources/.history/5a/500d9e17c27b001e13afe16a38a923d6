@@ -1,0 +1,9 @@
+package com.eduexcellence.studentms.service;
+
+import org.springframework.http.ResponseEntity;
+
+public interface StudentService {
+
+	public ResponseEntity<Object> getAllStudent();
+
+}

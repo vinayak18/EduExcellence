@@ -1,0 +1,5 @@
+package com.eduexcellence.studentms.model;
+
+public class Student {
+
+}

@@ -1,0 +1,78 @@
+package com.eduexcellence.studentms.serviceImpl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.eduexcellence.studentms.exception.StudentNotFoundException;
+import com.eduexcellence.studentms.model.Student;
+import com.eduexcellence.studentms.repository.StudentRepository;
+import com.eduexcellence.studentms.service.StudentService;
+
+import jakarta.validation.Valid;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+	
+	@Autowired
+	private StudentRepository studentRepo;
+
+	@Override
+	public ResponseEntity<List<Student>> getAllStudent() {
+		List<Student> studentList = (List<Student>) studentRepo.findAll();
+		return new ResponseEntity<>(studentList,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> addNewStudent(Student student) {
+		List<Student> studentList = studentRepo.findByGrade(student.getGrade());
+		studentList.add(student);
+		reshuffleListBasedOnName(studentList);
+		return new ResponseEntity<>("Student added successfully",HttpStatus.OK);
+	}
+	
+	public void reshuffleListBasedOnName(List<Student> studentList){
+		Collections.sort(studentList, new Comparator<Student>() {
+			public int compare(Student a, Student b) {
+				if(a.getFirstName().compareTo(b.getFirstName()) == 0) {
+					return a.getLastName().compareTo(b.getLastName());
+				}
+				return a.getFirstName().compareTo(b.getFirstName());
+			}
+		}); 
+		int[] rollNo = {1};
+		studentList.stream().forEach((st)->{
+			st.setRollNo(rollNo[0]++);
+		});
+		studentRepo.saveAll(studentList);
+	}
+
+	@Override
+	public ResponseEntity<Student> getStudentById(int id) {
+		Student student = studentRepo.findById(id).orElseThrow(()-> new StudentNotFoundException("Student does not exists"));
+		return new ResponseEntity<>(student,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> updateStudentDetails(Student updatedStudent) {
+		Student student = studentRepo.findById(updatedStudent.getId()).orElseThrow(()-> new StudentNotFoundException("Student does not exists"));
+		studentRepo.save(updatedStudent);
+		return new ResponseEntity<>("Student details updated successfully",HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<String> deleteStudent(int id) {
+		Student student = studentRepo.findById(id).orElseThrow(()-> new StudentNotFoundException("Student does not exists"));
+		studentRepo.delete(student);
+		List<Student> studentList = studentRepo.findByGrade(student.getGrade());
+		reshuffleListBasedOnName(studentList);
+		return new ResponseEntity<>("Student deleted successfully",HttpStatus.OK);
+	}
+
+}

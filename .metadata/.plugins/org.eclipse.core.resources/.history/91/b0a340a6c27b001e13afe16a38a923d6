@@ -1,0 +1,22 @@
+package com.eduexcellence.studentms.serviceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.eduexcellence.studentms.model.Student;
+import com.eduexcellence.studentms.service.StudentService;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+	@Override
+	public ResponseEntity<List<Student>> getAllStudent() {
+		List<Student> st = new ArrayList<Student>();
+		st.add(new Student(1, 1`, "Vinayak", "Saraf", null, null, 4));
+		return ;
+	}
+
+}
