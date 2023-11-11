@@ -30,33 +30,33 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
-	@GetMapping(value="/get/student/all")
+	@GetMapping(value="/student/get/all")
 	public ResponseEntity<List<Student>> getAllStudent(){
 		return studentService.getAllStudent();
 	}
 	
-	@GetMapping(value="/get/student/id/{id}")
+	@GetMapping(value="/student/get/id/{id}")
 	public ResponseEntity<Student> getStudentById(@PathVariable("id") int id){
 		return studentService.getStudentById(id);
 	}
 	
-	@PutMapping(value="/update/student/details")
+	@PutMapping(value="/student/update/details")
 	public ResponseEntity<String> updateStudentDetails(@Valid @RequestBody Student student){
 		return studentService.updateStudentDetails(student);
 	}
 	
-	@DeleteMapping(value="/delete/student/{id}")
+	@DeleteMapping(value="/student/delete/{id}")
 	public ResponseEntity<String> deleteStudent(@PathVariable("id") int id){
 		return studentService.deleteStudent(id);
 	}
 	
-	@PostMapping(value="/add/student/new")
+	@PostMapping(value="/student/add/new")
 	public ResponseEntity<String> addNewStudent(@Valid @RequestBody Student student){
 		return studentService.addNewStudent(student);
 	}
 	
-	@GetMapping(value = "/get/fee/details/from/student/{id}")
+	@GetMapping(value = "/student/get/fee/details/{id}")
 	public ResponseEntity<List<FeeDetails>> getFeesPaidByStudent(@PathVariable("id") int studentId){
-		return ResponseEntity.ok(webClientBuilder.build().get().uri("http://localhost:8091/api/v1/get/fee/details/"+studentId).retrieve().bodyToMono(List.class).block());
+		return ResponseEntity.ok(webClientBuilder.build().get().uri("http://localhost:8091/api/v1/fee/get/details/"+studentId).retrieve().bodyToMono(List.class).block());
 	}
 }

@@ -23,12 +23,12 @@ public class FeesController {
 	@Autowired
 	private FeesService feeService;
 
-	@GetMapping(value = "/get/fee/details/{id}")
+	@GetMapping(value = "/fee/get/details/{id}")
 	public ResponseEntity<List<FeeDetails>> getFeesPaidByStudent(@PathVariable("id") int studentId){
 		return feeService.getFeesPaidByStudent(studentId);
 	}
 	
-	@PostMapping(value = "/add/student/fee/details")
+	@PostMapping(value = "/fee/add/details")
 	public ResponseEntity<String> addFeeDetailsForStudent(@Valid @RequestBody FeeDetails feeDetails){
 		return feeService.addFeeDetailsForStudent(feeDetails);
 	}
