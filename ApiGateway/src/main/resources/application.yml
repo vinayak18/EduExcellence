@@ -14,7 +14,7 @@ spring:
       - id: feesms
         uri: lb://feesms
         predicates:
-        - Path=/api/v1/messagingservice/**
+        - Path=/api/v1/fee/**
 
 eureka:
   client:
@@ -22,11 +22,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     preferIpAddress: true  
-
-management:
-  tracing:
-    sampling:
-      probability: 1.0
       
 logging:
   pattern:
